@@ -11,7 +11,7 @@ Modern full‑stack blog & subscription platform built with Next.js App Router (
   - Add Product / (Add Blog Post)
   - Blog List (CRUD: create, list, delete)
   - Subscriptions (list & delete subscriber emails)
-	- Active menu icon contrast fix (icon turns white on selection)
+  - Active menu icon contrast fix (icon turns white on selection)
 - Newsletter email capture & storage
 - RESTful API routes using Next.js Route Handlers
 - MongoDB connection with connection caching to avoid duplicates in dev
@@ -66,11 +66,10 @@ README.md
 ## 🧭 Loading States
 
 - The main blog list shows skeleton placeholders while data is fetched from `/api/blog`.
-	- Component: `Components/BlogCardSkeleton.jsx`
-	- Usage: rendered by `Components/BlogList.jsx` when `loading === true`
-	- Layout: widths match `BlogItem` cards (w-[330px] sm:w-[300px]) ensuring identical column count.
-	- Animation: Tailwind `animate-pulse` (no extra dependencies).
-
+  - Component: `Components/BlogCardSkeleton.jsx`
+  - Usage: rendered by `Components/BlogList.jsx` when `loading === true`
+  - Layout: widths match `BlogItem` cards (w-[330px] sm:w-[300px]) ensuring identical column count.
+  - Animation: Tailwind `animate-pulse` (no extra dependencies).
 
 ## 🗃️ Data Models
 
