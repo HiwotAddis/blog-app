@@ -2,14 +2,21 @@ import { blog_data } from "@/Assets/assets";
 import React, { useEffect, useState } from "react";
 import BlogItem from "./BlogItem";
 import axios from "axios";
+import BlogCardSkeleton from "./BlogCardSkeleton";
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchBlogs = async () => {
-    const response = await axios.get("/api/blog");
-    setBlogs(response.data.blogs);
-    console.log(response.data.blogs);
+    try {
+      setLoading(true);
+      const response = await axios.get("/api/blog");
+      setBlogs(response.data.blogs);
+      console.log(response.data.blogs);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -57,20 +64,26 @@ const BlogList = () => {
         </button>
       </div>
       <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24">
-        {blogs
-          .filter((item) => (menu === "All" ? true : item.category === menu))
-          .map((item, index) => {
-            return (
-              <BlogItem
-                key={index}
-                id={item._id}
-                image={item.image}
-                title={item.title}
-                description={item.description}
-                category={item.category}
-              />
-            );
-          })}
+        {loading
+          ? Array.from({ length: 8 }).map((_, i) => (
+              <BlogCardSkeleton key={i} />
+            ))
+          : blogs
+              .filter((item) =>
+                menu === "All" ? true : item.category === menu
+              )
+              .map((item, index) => {
+                return (
+                  <BlogItem
+                    key={index}
+                    id={item._id}
+                    image={item.image}
+                    title={item.title}
+                    description={item.description}
+                    category={item.category}
+                  />
+                );
+              })}
       </div>
     </div>
   );
